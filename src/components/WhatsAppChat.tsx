@@ -4,7 +4,7 @@ import { MessageCircle, X, ExternalLink } from 'lucide-react';
 const WhatsAppChat = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const whatsappNumber = "+33123456789";
+  const whatsappNumber = "+237656945851";
   const defaultMessage = "Bonjour, je souhaiterais en savoir plus sur vos services Athyms Solutions.";
   
   const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/\D/g, '')}?text=${encodeURIComponent(defaultMessage)}`;
