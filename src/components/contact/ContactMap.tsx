@@ -74,7 +74,7 @@ const ContactMap: React.FC = () => {
                   key={index}
                   position={location.position}
                   title={location.name}
-                  icon={markerIcon} // Use the custom marker icon
+                //   icon={markerIcon} // Use the custom marker icon
                 />
               ))}
             </GoogleMap>
