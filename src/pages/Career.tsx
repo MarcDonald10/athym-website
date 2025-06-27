@@ -61,14 +61,14 @@ const Career = () => {
     {
       name: 'Sarah L.',
       role: 'Ingénieure Innovation',
-      message: 'Athyms m\'a permis de développer mes compétences techniques tout en travaillant sur des projets passionnants. L\'équipe est fantastique !',
+      message: 'Athyms Solution m\'a permis de développer mes compétences techniques tout en travaillant sur des projets passionnants. L\'équipe est fantastique !',
       rating: 5,
       avatar: 'SL'
     },
     {
       name: 'Thomas R.',
       role: 'Consultant Senior',
-      message: 'La diversité des projets et l\'autonomie accordée font d\'Athyms un environnement de travail idéal pour évoluer.',
+      message: 'La diversité des projets et l\'autonomie accordée font d\'Athyms Solution un environnement de travail idéal pour évoluer.',
       rating: 5,
       avatar: 'TR'
     },
@@ -159,7 +159,7 @@ const Career = () => {
             </h1>
             <p className="text-xl mb-12 text-blue-100 max-w-4xl mx-auto leading-relaxed">
               Rejoignez une équipe passionnée qui transforme l'innovation en réalité. 
-              Chez Athyms, votre talent trouve sa place dans des projets qui comptent.
+              Chez Athyms Solution, votre talent trouve sa place dans des projets qui comptent.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
@@ -193,7 +193,7 @@ const Career = () => {
                 className="card p-8 text-center group animate-slide-up"
                 style={{animationDelay: `${index * 0.1}s`}}
               >
-                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-primary-100 to-secondary-100 rounded-2xl flex items-center justify-center text-primary-600 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-16 h-16 mx-auto mb-6 bg-primary-50 from-primary-100 to-secondary-100 rounded-2xl flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300">
                   {benefit.icon}
                 </div>
                 <h3 className="text-xl font-bold text-neutral-900 mb-4">
@@ -216,7 +216,7 @@ const Career = () => {
               Témoignages Collaborateurs
             </h2>
             <p className="text-xl text-neutral-600 max-w-3xl mx-auto">
-              Découvrez ce que nos équipes pensent de leur expérience chez Athyms
+              Découvrez ce que nos équipes pensent de leur expérience chez Athyms Solution
             </p>
           </div>
 
@@ -236,7 +236,7 @@ const Career = () => {
                   "{testimonial.message}"
                 </blockquote>
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-gradient-to-r from-primary-400 to-secondary-400 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                  <div className="w-12 h-12 bg-primary-50 from-primary-400 to-secondary-400 rounded-full flex items-center justify-center text-white font-bold mr-4">
                     {testimonial.avatar}
                   </div>
                   <div>
@@ -289,9 +289,9 @@ const Career = () => {
                       </div>
                     </div>
                   </div>
-                  <button className="btn-primary mt-4 md:mt-0">
+                  {/* <button className="btn-primary mt-4 md:mt-0">
                     Postuler
-                  </button>
+                  </button> */}
                 </div>
                 <p className="text-neutral-600 leading-relaxed">
                   {position.description}
@@ -312,14 +312,14 @@ const Career = () => {
       </section>
 
       {/* Formulaire de candidature spontanée */}
-      <section className="section-padding bg-gradient-to-br from-primary-50 to-secondary-50">
+      <section className="section-padding bg-primary-50 from-primary-50 to-secondary-50">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-neutral-900 mb-6">
+              <h2 className="text-4xl font-bold text-white mb-6">
                 Candidature Spontanée
               </h2>
-              <p className="text-xl text-neutral-600">
+              <p className="text-xl text-white">
                 Partagez-nous votre profil et vos motivations
               </p>
             </div>
@@ -429,7 +429,7 @@ const Career = () => {
                     </>
                   ) : (
                     <>
-                      <Send className="w-5 h-5 mr-2" />
+                      {/* <Send className="w-5 h-5 mr-2" /> */}
                       Envoyer ma candidature
                     </>
                   )}

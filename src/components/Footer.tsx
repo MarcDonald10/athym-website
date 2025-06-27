@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronUp, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { ChevronUp, Linkedin, Mail, Phone, MapPin, X, Facebook } from 'lucide-react';
 import logo from '../assets/logos/logo-blanc.png'
 
 
@@ -44,6 +44,26 @@ const Footer = () => {
               >
                 <Linkedin className="w-6 h-6" />
               </a>
+
+              <a 
+                href="#" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-12 h-12 bg-neutral-800 hover:bg-primary-600 rounded-lg flex items-center justify-center transition-all duration-300 transform hover:scale-110"
+                aria-label="LinkedIn Athyms Solutions"
+              >
+                <X className="w-6 h-6" />
+              </a>
+
+              <a 
+                href="#" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-12 h-12 bg-neutral-800 hover:bg-primary-600 rounded-lg flex items-center justify-center transition-all duration-300 transform hover:scale-110"
+                aria-label="LinkedIn Athyms Solutions"
+              >
+                <Facebook className="w-6 h-6" />
+              </a>
             </div>
           </div>
 
@@ -72,12 +92,20 @@ const Footer = () => {
               >
                 Expertises
               </Link>
+              
+              <Link 
+                to="/news" 
+                onClick={scrollToTop}
+                className="block text-neutral-300 hover:text-primary-50 transition-colors duration-300"
+              >
+                Actualités
+              </Link>
               <Link 
                 to="/carriere" 
                 onClick={scrollToTop}
                 className="block text-neutral-300 hover:text-primary-50 transition-colors duration-300"
               >
-                Carrière
+                Nous rejoindre
               </Link>
               <Link 
                 to="/contact" 
@@ -95,7 +123,8 @@ const Footer = () => {
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
                 <MapPin className="w-5 h-5 text-primary-50 flex-shrink-0" />
-                <span className="text-neutral-300">Grenoble, France</span>
+                <span className="text-neutral-300">Grenoble, FRANCE</span>
+                <span className="text-neutral-300">Dakar, SENEGAL</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-primary-50 flex-shrink-0" />
@@ -109,10 +138,10 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-primary-50 flex-shrink-0" />
                 <a 
-                  href="tel:+33123456789" 
+                  href="tel:+33758814737" 
                   className="text-neutral-300 hover:text-primary-50 transition-colors duration-300"
                 >
-                  +33 1 23 45 67 89
+                  +33 758 814 737
                 </a>
               </div>
             </div>

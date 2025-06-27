@@ -8,6 +8,8 @@ import About from './pages/About';
 import Expertise from './pages/Expertise';
 import Career from './pages/Career';
 import Contact from './pages/Contact';
+import News from './pages/News';
+import NewsDetail from './pages/NewsDetail';
 
 function App() {
   return (
@@ -21,6 +23,9 @@ function App() {
             <Route path="/expertises" element={<Expertise />} />
             <Route path="/carriere" element={<Career />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/news/:id" element={<NewsDetail />} />
+            <Route path="*" element={<Home />} />
           </Routes>
         </main>
         <Footer />

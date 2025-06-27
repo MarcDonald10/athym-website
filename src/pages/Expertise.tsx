@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Building2, Zap, Cog, Smartphone, ArrowRight, ExternalLink, Linkedin } from 'lucide-react';
+import { motion, useInView } from 'framer-motion';
 
 const Expertise = () => {
   const expertises = [
@@ -47,7 +48,7 @@ const Expertise = () => {
     },
     {
       id: 'urbanisme',
-      icon: <Cog className="w-12 h-12 bg-primary-50" />,
+      icon: <Cog className="w-12 h-12" />,
       title: 'Urbanisme & Mobilité',
       subtitle: 'Villes intelligentes et mobilité durable',
       description: 'Conception de solutions innovantes pour les smart cities et les nouveaux modes de transport, au service d\'une mobilité plus durable et inclusive.',
@@ -89,6 +90,110 @@ const Expertise = () => {
     }
   ];
 
+  // References for scroll detection
+  const heroRef = useRef(null);
+  const ctaRef = useRef(null);
+  const isHeroInView = useInView(heroRef, { once: false, margin: '-100px' });
+  const isCtaInView = useInView(ctaRef, { once: false, margin: '-100px' });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 },
+    },
+  };
+
+  const headerVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeInOut' } },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.8, ease: 'easeInOut' },
+    },
+    hover: {
+      scale: 1.03,
+      boxShadow: '0px 8px 24px rgba(59,130,246,0.2)',
+      transition: { duration: 0.3 },
+    },
+  };
+
+  const iconVariants = [
+    // Construction: Pulse with glowing border
+    {
+      animate: {
+        scale: [1, 1.1, 1],
+        borderColor: ['#10B981', '#059669', '#10B981'],
+        boxShadow: [
+          '0px 0px 0px rgba(16,185,129,0)',
+          '0px 0px 10px rgba(16,185,129,0.4)',
+          '0px 0px 0px rgba(16,185,129,0)',
+        ],
+        transition: { repeat: Infinity, duration: 2.5, ease: 'easeInOut' },
+      },
+      hover: { scale: 1.2, transition: { duration: 0.3 } },
+    },
+    // Energie: Float with dynamic shadow
+    {
+      animate: {
+        y: [0, -5, 0],
+        boxShadow: [
+          '0px 0px 0px rgba(0,0,0,0.2)',
+          '0px 6px 12px rgba(59,130,246,0.4)',
+          '0px 0px 0px rgba(0,0,0,0.2)',
+        ],
+        transition: { repeat: Infinity, duration: 2, ease: 'easeInOut' },
+      },
+      hover: { y: -8, transition: { duration: 0.3 } },
+    },
+    // Urbanisme: Zoom with animated gradient
+    {
+      animate: {
+        scale: [1, 1.1, 1],
+        background: [
+          'linear-gradient(45deg, #6B46C1, #4C1D95)',
+          'linear-gradient(45deg, #4C1D95, #6B46C1)',
+          'linear-gradient(45deg, #6B46C1, #4C1D95)',
+        ],
+        transition: { repeat: Infinity, duration: 3, ease: 'easeInOut' },
+      },
+      hover: { scale: 1.2, transition: { duration: 0.3 } },
+    },
+    // IT: Bounce with rotation
+    {
+      animate: {
+        y: [0, -4, 0],
+        rotate: [0, 6, 0],
+        transition: { repeat: Infinity, duration: 2.3, ease: 'easeInOut' },
+      },
+      hover: { scale: 1.15, rotate: 10, transition: { duration: 0.3 } },
+    },
+  ];
+
+  const textVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeInOut', delay: 0.2 } },
+  };
+
+  const buttonVariants = {
+    animate: {
+      scale: [1, 1.05, 1],
+      boxShadow: [
+        '0px 0px 0px rgba(0,0,0,0)',
+        '0px 4px 12px rgba(59,130,246,0.3)',
+        '0px 0px 0px rgba(0,0,0,0)',
+      ],
+      transition: { repeat: Infinity, duration: 3, ease: 'easeInOut' },
+    },
+    hover: { scale: 1.1, transition: { duration: 0.3 } },
+  };
+
   const shareOnLinkedIn = (title: string) => {
     const url = window.location.href;
     const text = `Découvrez l'expertise ${title} d'Athyms Solutions`;
@@ -99,125 +204,214 @@ const Expertise = () => {
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="section-padding bg-primary-50 from-primary-50 to-secondary-50">
-        <div className="container-custom text-center">
-          <div className="animate-slide-up">
-            <h1 className="text-5xl md:text-6xl font-bold text-neutral-900 mb-6 text-white">
-              Nos Expertises
-            </h1>
-            <p className="text-xl text-neutral-600 mb-8 max-w-4xl mx-auto leading-relaxed text-white">
-              Chez Athyms solution, chaque projet est une aventure unique où l'innovation rime avec performance. 
-              Découvrez nos  domaines d'excellence qui façonnent l'industrie de demain.
-            </p>
-          </div>
-        </div>
+      <section className="section-padding bg-primary-50 from-primary-50 to-secondary-50" ref={heroRef}>
+        <motion.div
+          className="container-custom text-center"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isHeroInView ? 'visible' : 'hidden'}
+        >
+          <motion.h1
+            className="text-5xl md:text-6xl font-bold text-white mb-6"
+            variants={headerVariants}
+          >
+            Nos Expertises
+          </motion.h1>
+          <motion.p
+            className="text-xl text-white mb-8 max-w-4xl mx-auto leading-relaxed"
+            variants={headerVariants}
+            transition={{ delay: 0.2 }}
+          >
+            Chez Athyms Solutions, chaque projet est une aventure unique où l'innovation rime avec performance. 
+            Découvrez nos domaines d'excellence qui façonnent l'industrie de demain.
+          </motion.p>
+        </motion.div>
       </section>
 
       {/* Expertises Sections */}
-      {expertises.map((expertise, index) => (
-        <section 
-          key={expertise.id} 
-          id={expertise.id}
-          className={`section-padding ${index % 2 === 0 ? 'bg-white' : 'bg-neutral-50'}`}
-        >
-          <div className="container-custom">
-            <div className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center ${
-              index % 2 === 0 ? '' : 'lg:grid-flow-col-dense'
-            }`}>
-              {/* Content */}
-              <div className={`animate-slide-up ${index % 2 === 0 ? '' : 'lg:col-start-2'}`}>
-                <div className="flex items-center mb-6">
-                  <div className={`w-16 h-16 bg-primary-50 ${expertise.color} rounded-2xl flex items-center justify-center text-white mr-6`}>
-                    {expertise.icon}
-                  </div>
-                  <div>
-                    <h2 className="text-4xl font-bold text-neutral-900">{expertise.title}</h2>
-                    <p className="text-xl text-neutral-600 mt-2">{expertise.subtitle}</p>
-                  </div>
-                </div>
+      {expertises.map((expertise, index) => {
+        const sectionRef = useRef(null);
+        const isSectionInView = useInView(sectionRef, { once: false, margin: '-100px' });
 
-                <p className="text-lg text-neutral-600 mb-8 leading-relaxed">
-                  {expertise.description}
-                </p>
-
-                {/* Features */}
-                <div className="mb-8">
-                  <h3 className="text-2xl font-bold text-neutral-900 mb-4">Nos compétences clés</h3>
-                  <ul className="space-y-3">
-                    {expertise.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center">
-                        <div className="w-2 h-2 bg-primary-600 rounded-full mr-4 flex-shrink-0"></div>
-                        <span className="text-neutral-700">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Projects */}
-                {/* <div className="mb-8">
-                  <h3 className="text-2xl font-bold text-neutral-900 mb-4">Projets récents</h3>
-                  <div className="space-y-3">
-                    {expertise.projects.map((project, projectIndex) => (
-                      <div key={projectIndex} className="flex items-start">
-                        <ArrowRight className="w-5 h-5 text-primary-600 mr-3 mt-0.5 flex-shrink-0" />
-                        <span className="text-neutral-700">{project}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div> */}
-
-                {/* Share Button */}
-                <button
-                  onClick={() => shareOnLinkedIn(expertise.title)}
-                  className="btn-secondary inline-flex items-center mb-4"
+        return (
+          <section 
+            key={expertise.id} 
+            id={expertise.id}
+            className={`section-padding ${index % 2 === 0 ? 'bg-white' : 'bg-neutral-50'}`}
+            ref={sectionRef}
+          >
+            <motion.div
+              className="container-custom"
+              variants={containerVariants}
+              initial="hidden"
+              animate={isSectionInView ? 'visible' : 'hidden'}
+            >
+              <div className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center ${
+                index % 2 === 0 ? '' : 'lg:grid-flow-col-dense'
+              }`}>
+                {/* Content */}
+                <motion.div
+                  className={`relative ${index % 2 === 0 ? '' : 'lg:col-start-2'}`}
+                  variants={itemVariants}
+                  whileHover="hover"
                 >
-                  <Linkedin className="w-5 h-5 mr-2" />
-                  Partager sur LinkedIn
-                  <ExternalLink className="w-4 h-4 ml-2" />
-                </button>
-              </div>
-
-              {/* Image */}
-              <div className={`animate-slide-up ${index % 2 === 0 ? '' : 'lg:col-start-1'}`} style={{animationDelay: '0.2s'}}>
-                <div className="relative">
+                  {/* Particle background effect */}
+                  <motion.div
+                    className="absolute inset-0 -z-10 rounded-2xl"
+                    animate={{
+                      background: [
+                        `radial-gradient(circle, rgba(59,130,246,0.1) 0%, rgba(59,130,246,0) 70%)`,
+                        `radial-gradient(circle, rgba(16,185,129,0.1) 0%, rgba(16,185,129,0) 70%)`,
+                        `radial-gradient(circle, rgba(59,130,246,0.1) 0%, rgba(59,130,246,0) 70%)`,
+                      ],
+                    }}
+                    transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+                  />
+                  <div className="flex items-center mb-6">
+                    <motion.div
+                      className={`w-16 h-16 bg-primary-50 ${expertise.color} rounded-2xl flex items-center justify-center text-white mr-6`}
+                      variants={iconVariants[index]}
+                      animate="animate"
+                      whileHover="hover"
+                    >
+                      {expertise.icon}
+                    </motion.div>
+                    <div>
+                      <motion.h2
+                        className="text-4xl font-bold text-neutral-900"
+                        variants={textVariants}
+                      >
+                        {expertise.title}
+                      </motion.h2>
+                      <motion.p
+                        className="text-xl text-neutral-600 mt-2"
+                        variants={textVariants}
+                      >
+                        {expertise.subtitle}
+                      </motion.p>
+                    </div>
+                  </div>
+                  <motion.p
+                    className="text-lg text-neutral-600 mb-8 leading-relaxed"
+                    variants={textVariants}
+                  >
+                    {expertise.description}
+                  </motion.p>
+                  {/* Features */}
+                  <motion.div className="mb-8" variants={textVariants}>
+                    <h3 className="text-2xl font-bold text-neutral-900 mb-4">Nos compétences clés</h3>
+                    <ul className="space-y-3">
+                      {expertise.features.map((feature, featureIndex) => (
+                        <motion.li
+                          key={featureIndex}
+                          className="flex items-center"
+                          variants={textVariants}
+                          transition={{ delay: featureIndex * 0.1 }}
+                        >
+                          <motion.div
+                            className="w-2 h-2 bg-primary-600 rounded-full mr-4 flex-shrink-0"
+                            animate={{
+                              scale: [1, 1.3, 1],
+                              transition: { repeat: Infinity, duration: 2, ease: 'easeInOut' },
+                            }}
+                          />
+                          <span className="text-neutral-700">{feature}</span>
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                  {/* Share Button */}
+                  <motion.button
+                    onClick={() => shareOnLinkedIn(expertise.title)}
+                    className="btn-secondary inline-flex items-center mb-4"
+                    variants={buttonVariants}
+                    animate="animate"
+                    whileHover="hover"
+                  >
+                    <Linkedin className="w-5 h-5 mr-2" />
+                    Partager sur LinkedIn
+                    <ExternalLink className="w-4 h-4 ml-2" />
+                  </motion.button>
+                </motion.div>
+                {/* Image */}
+                <motion.div
+                  className={`relative ${index % 2 === 0 ? '' : 'lg:col-start-1'}`}
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.05 }}
+                >
                   <div className="aspect-w-16 aspect-h-12 rounded-2xl overflow-hidden shadow-2xl">
-                    <img 
-                      src={expertise.image} 
+                    <motion.img
+                      src={expertise.image}
                       alt={expertise.title}
-                      className="w-full h-96 object-cover rounded-2xl transition-transform duration-700 hover:scale-105"
+                      className="w-full h-96 object-cover rounded-2xl"
                       loading="lazy"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.8, ease: 'easeInOut' }}
+                      whileHover={{ scale: 1.05, transition: { duration: 0.7 } }}
                     />
                   </div>
-                  {/* Gradient overlay */}
-                  <div className={`absolute inset-0 bg-gradient-to-t ${expertise.color} opacity-20 rounded-2xl pointer-events-none`}></div>
-                </div>
+                  <motion.div
+                    className={`absolute inset-0 bg-gradient-to-t ${expertise.color} opacity-20 rounded-2xl pointer-events-none`}
+                    animate={{
+                      opacity: [0.2, 0.3, 0.2],
+                      transition: { repeat: Infinity, duration: 3, ease: 'easeInOut' },
+                    }}
+                  />
+                </motion.div>
               </div>
-            </div>
-          </div>
-        </section>
-      ))}
+            </motion.div>
+          </section>
+        );
+      })}
 
       {/* CTA Section */}
-      <section className="section-padding bg-primary-50 from-primary-600 to-secondary-600">
-        <div className="container-custom text-center text-white">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+      <section className="section-padding bg-primary-50 from-primary-600 to-secondary-600" ref={ctaRef}>
+        <motion.div
+          className="container-custom text-center text-white"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isCtaInView ? 'visible' : 'hidden'}
+        >
+          <motion.h2
+            className="text-4xl md:text-5xl font-bold mb-6"
+            variants={headerVariants}
+          >
             Une expertise qui vous ressemble ?
-          </h2>
-          <p className="text-xl mb-12 text-blue-100 max-w-3xl mx-auto">
+          </motion.h2>
+          <motion.p
+            className="text-xl mb-12 text-blue-100 max-w-3xl mx-auto"
+            variants={headerVariants}
+            transition={{ delay: 0.2 }}
+          >
             Chaque projet est unique et mérite une approche sur-mesure. 
             Discutons de vos défis et découvrons ensemble les solutions les plus adaptées.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <a href="/contact" className="btn-accent text-lg px-10 py-4">
+          </motion.p>
+          <motion.div
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            variants={containerVariants}
+          >
+            <motion.a
+              href="/contact"
+              className="btn-accent text-lg px-10 py-4"
+              variants={buttonVariants}
+              animate="animate"
+              whileHover="hover"
+            >
               Démarrer un projet
               <ArrowRight className="w-5 h-5 ml-2 inline" />
-            </a>
-            <a href="/a-propos" className="btn-secondary text-lg px-10 py-4">
+            </motion.a>
+            <motion.a
+              href="/a-propos"
+              className="btn-secondary text-lg px-10 py-4"
+              variants={buttonVariants}
+              animate="animate"
+              whileHover="hover"
+            >
               En savoir plus sur nous
-            </a>
-          </div>
-        </div>
+            </motion.a>
+          </motion.div>
+        </motion.div>
       </section>
     </div>
   );
